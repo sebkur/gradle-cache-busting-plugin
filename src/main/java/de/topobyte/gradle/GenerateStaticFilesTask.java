@@ -24,17 +24,13 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import de.topobyte.melon.paths.PathUtil;
 import org.gradle.api.InvalidUserDataException;
 import org.gradle.api.Project;
 import org.gradle.api.internal.ConventionTask;
 import org.gradle.api.tasks.TaskAction;
-import org.gradle.internal.impldep.org.apache.commons.collections.map.HashedMap;
 
 public class GenerateStaticFilesTask extends ConventionTask {
 
@@ -81,12 +77,17 @@ public class GenerateStaticFilesTask extends ConventionTask {
                     continue;
                 }
                 System.out.println("file: " + relative);
-                Path target = output.resolve(relative);
+
+                String hash = Util.hash(file);
+                Path altered = Util.changeName(relative, hash);
+
+                Path target = output.resolve(altered);
+
                 Files.createDirectories(target.getParent());
                 Files.copy(file, target, StandardCopyOption.REPLACE_EXISTING);
 
                 mappedFiles.add(relative);
-                map.put(relative, relative);
+                map.put(relative, altered);
             }
         }
 

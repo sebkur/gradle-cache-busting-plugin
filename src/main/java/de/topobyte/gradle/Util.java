@@ -17,6 +17,9 @@
 
 package de.topobyte.gradle;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public class Util
@@ -25,6 +28,27 @@ public class Util
 	public static Path getSourceDir(Path pathBuildDir)
 	{
 		return pathBuildDir.resolve("generatedSourceCacheBusting");
+	}
+
+	public static Path changeName(Path file, String hash) {
+		String name = file.getFileName().toString();
+		String newName;
+		if (!name.contains(".")) {
+			newName = name + "-" + hash;
+		}else {
+			int pos = name.lastIndexOf(".");
+			String prefix = name.substring(0, pos);
+			String extension = name.substring(pos);
+			newName = prefix + "-" + hash + extension;
+		}
+		return file.resolveSibling(newName);
+	}
+
+	public static String hash(Path path) throws IOException {
+		try (InputStream is = Files.newInputStream(path)) {
+			String md5 = org.apache.commons.codec.digest.DigestUtils.md5Hex(is);
+			return md5;
+		}
 	}
 
 }
