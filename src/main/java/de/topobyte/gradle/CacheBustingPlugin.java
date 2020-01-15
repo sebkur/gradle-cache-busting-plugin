@@ -58,6 +58,16 @@ public class CacheBustingPlugin implements Plugin<Project>
 			project.getTasks().findByName("eclipseClasspath").dependsOn(task);
 			project.getTasks().findByName("eclipseProject").dependsOn(task);
 		}
+
+		Path pathBuildDir = project.getBuildDir().toPath();
+		Path source = Util.getSourceDir(pathBuildDir);
+
+		SourceSet sourceSets = project.getConvention()
+				.getPlugin(JavaPluginConvention.class).getSourceSets()
+				.findByName("main");
+		sourceSets.java(sourceSet -> {
+			sourceSet.srcDir(source);
+		});
 	}
 
 }
