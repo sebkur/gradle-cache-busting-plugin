@@ -2,7 +2,7 @@ wrapper {
     gradleVersion = '5.2.1'
 }
 
-apply plugin: 'groovy'
+apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'com.gradle.plugin-publish'
 
