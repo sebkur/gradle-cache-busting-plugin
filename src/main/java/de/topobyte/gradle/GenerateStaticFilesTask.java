@@ -125,8 +125,11 @@ public class GenerateStaticFilesTask extends ConventionTask {
         buffer.append(nl);
         buffer.append("package " + packageName + ";");
         buffer.append(nl);
+        buffer.append(nl);
         buffer.append("import java.util.Map;");
+        buffer.append(nl);
         buffer.append("import java.util.HashMap;");
+        buffer.append(nl);
         buffer.append(nl);
         buffer.append("public class " + className);
         buffer.append(nl);
