@@ -172,7 +172,7 @@ public class GenerateStaticFilesTask extends ConventionTask {
         buffer.append("\t}");
         buffer.append(nl);
         buffer.append(nl);
-        buffer.append("\tpublic static Set<String> getValues()");
+        buffer.append("\tpublic static Collection<String> getValues()");
         buffer.append(nl);
         buffer.append("\t{");
         buffer.append(nl);
