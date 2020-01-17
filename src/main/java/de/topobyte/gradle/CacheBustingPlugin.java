@@ -17,16 +17,15 @@
 
 package de.topobyte.gradle;
 
-import java.nio.file.Path;
-
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
 import org.gradle.api.logging.Logger;
-import org.gradle.api.plugins.JavaPlugin;
 import org.gradle.api.plugins.JavaPluginConvention;
 import org.gradle.api.plugins.WarPlugin;
 import org.gradle.api.tasks.SourceSet;
 import org.gradle.plugins.ide.eclipse.EclipsePlugin;
+
+import java.nio.file.Path;
 
 public class CacheBustingPlugin implements Plugin<Project>
 {

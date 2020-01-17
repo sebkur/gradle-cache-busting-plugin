@@ -17,6 +17,12 @@
 
 package de.topobyte.gradle;
 
+import de.topobyte.melon.paths.PathUtil;
+import org.gradle.api.InvalidUserDataException;
+import org.gradle.api.Project;
+import org.gradle.api.internal.ConventionTask;
+import org.gradle.api.tasks.TaskAction;
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -24,13 +30,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.util.*;
-
-import de.topobyte.melon.paths.PathUtil;
-import org.gradle.api.InvalidUserDataException;
-import org.gradle.api.Project;
-import org.gradle.api.internal.ConventionTask;
-import org.gradle.api.tasks.TaskAction;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GenerateStaticFilesTask extends ConventionTask {
 
@@ -110,81 +113,12 @@ public class GenerateStaticFilesTask extends ConventionTask {
         Files.createDirectories(path);
         Path file = path.resolve(className + ".java");
 
-        StringBuilder buffer = createSource(packageName, className, mappedFiles, map);
+        StringBuilder buffer = new SourceGenerator().createSource(packageName,
+                className, mappedFiles, map);
 
         InputStream in = new ByteArrayInputStream(
                 buffer.toString().getBytes(StandardCharsets.UTF_8));
         Files.copy(in, file, StandardCopyOption.REPLACE_EXISTING);
-    }
-
-    private StringBuilder createSource(String packageName, String className, List<Path> mappedFiles, Map<Path, Path> map) {
-        String nl = System.getProperty("line.separator");
-
-        StringBuilder buffer = new StringBuilder();
-        buffer.append("// this file is generated, do not edit");
-        buffer.append(nl);
-        buffer.append("package " + packageName + ";");
-        buffer.append(nl);
-        buffer.append(nl);
-        buffer.append("import java.util.Collection;");
-        buffer.append(nl);
-        buffer.append("import java.util.Collections;");
-        buffer.append(nl);
-        buffer.append("import java.util.HashMap;");
-        buffer.append(nl);
-        buffer.append("import java.util.Map;");
-        buffer.append(nl);
-        buffer.append("import java.util.Set;");
-        buffer.append(nl);
-        buffer.append(nl);
-        buffer.append("public class " + className);
-        buffer.append(nl);
-        buffer.append("{");
-        buffer.append(nl);
-        buffer.append(nl);
-        buffer.append("\tprivate static Map<String, String> map = new HashMap<>();");
-        buffer.append(nl);
-        buffer.append("\tstatic {");
-        buffer.append(nl);
-        for (Path path : mappedFiles) {
-            Path mappedTo = map.get(path);
-            buffer.append("\t\tmap.put(\"" + path + "\", \"" + mappedTo + "\");");
-            buffer.append(nl);
-        }
-        buffer.append("\t}");
-        buffer.append(nl);
-        buffer.append(nl);
-        buffer.append("\tpublic static String resolve(String filename)");
-        buffer.append(nl);
-        buffer.append("\t{");
-        buffer.append(nl);
-        buffer.append("\t\treturn map.get(filename);");
-        buffer.append(nl);
-        buffer.append("\t}");
-        buffer.append(nl);
-        buffer.append(nl);
-        buffer.append("\tpublic static Set<String> getEntries()");
-        buffer.append(nl);
-        buffer.append("\t{");
-        buffer.append(nl);
-        buffer.append("\t\treturn Collections.unmodifiableSet(map.keySet());");
-        buffer.append(nl);
-        buffer.append("\t}");
-        buffer.append(nl);
-        buffer.append(nl);
-        buffer.append("\tpublic static Collection<String> getValues()");
-        buffer.append(nl);
-        buffer.append("\t{");
-        buffer.append(nl);
-        buffer.append("\t\treturn Collections.unmodifiableCollection(map.values());");
-        buffer.append(nl);
-        buffer.append("\t}");
-        buffer.append(nl);
-        buffer.append(nl);
-        buffer.append("}");
-        buffer.append(nl);
-
-        return buffer;
     }
 
 }
