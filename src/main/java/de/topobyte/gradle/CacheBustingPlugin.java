@@ -36,11 +36,6 @@ public class CacheBustingPlugin implements Plugin<Project>
 		Logger logger = project.getLogger();
 		logger.info("applying cache busting plugin");
 
-		if (!project.getPlugins().hasPlugin(WarPlugin.class)) {
-			logger.error("Please enable the war plugin.");
-			throw new IllegalStateException("No war plugin detected.");
-		}
-
 		CacheBustingPluginExtension extension = project.getExtensions().create(
 				"cacheBusting",
 				CacheBustingPluginExtension.class);
