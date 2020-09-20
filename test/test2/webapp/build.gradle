@@ -18,6 +18,8 @@ cacheBusting {
     input = []
     input += 'res'
     input += 'build/favicons'
+    packageName = 'com.example'
+    className = 'StaticFileMapping'
 }
 
 eclipse {
