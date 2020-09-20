@@ -19,7 +19,8 @@ package com.example.pages;
 
 import java.io.IOException;
 
-import de.topobyte.cachebusting.CacheBusting;
+import com.example.StaticFileMapping;
+
 import de.topobyte.jsoup.HTML;
 import de.topobyte.jsoup.components.P;
 import de.topobyte.pagegen.core.Context;
@@ -49,7 +50,7 @@ public class IndexGenerator extends BaseGenerator
 		p.addClass("styled");
 		p.appendText("This paragraph is styled from file hashed.css");
 
-		content.ac(HTML.img(CacheBusting.resolve("images/image.png")));
+		content.ac(HTML.img(StaticFileMapping.resolve("images/image.png")));
 	}
 
 }

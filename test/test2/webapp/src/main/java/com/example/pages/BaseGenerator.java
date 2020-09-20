@@ -23,7 +23,8 @@ import java.io.IOException;
 
 import org.jsoup.nodes.Element;
 
-import de.topobyte.cachebusting.CacheBusting;
+import com.example.StaticFileMapping;
+
 import de.topobyte.jsoup.FaviconUtil;
 import de.topobyte.jsoup.HTML;
 import de.topobyte.pagegen.core.BaseFileGenerator;
@@ -47,19 +48,19 @@ public class BaseGenerator extends BaseFileGenerator
 
 		content = getBuilder().getBody().ac(HTML.div());
 
-		head.appendChild(styleSheet(
-				getLink(WebPaths.get(CacheBusting.resolve("hashed.css")))));
+		head.appendChild(styleSheet(getLink(
+				WebPaths.get(StaticFileMapping.resolve("hashed.css")))));
 
 		FaviconUtil.addToHeader(head,
-				CacheBusting.resolve("images/favicon-16.png"), 16);
+				StaticFileMapping.resolve("images/favicon-16.png"), 16);
 		FaviconUtil.addToHeader(head,
-				CacheBusting.resolve("images/favicon-32.png"), 32);
+				StaticFileMapping.resolve("images/favicon-32.png"), 32);
 		FaviconUtil.addToHeader(head,
-				CacheBusting.resolve("images/favicon-48.png"), 48);
+				StaticFileMapping.resolve("images/favicon-48.png"), 48);
 		FaviconUtil.addToHeader(head,
-				CacheBusting.resolve("images/favicon-64.png"), 64);
+				StaticFileMapping.resolve("images/favicon-64.png"), 64);
 		FaviconUtil.addToHeader(head,
-				CacheBusting.resolve("images/favicon-96.png"), 96);
+				StaticFileMapping.resolve("images/favicon-96.png"), 96);
 	}
 
 }

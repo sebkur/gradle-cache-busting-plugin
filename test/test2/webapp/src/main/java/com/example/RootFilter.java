@@ -31,8 +31,6 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import de.topobyte.cachebusting.CacheBusting;
-
 @WebFilter("/*")
 public class RootFilter implements Filter
 {
@@ -40,7 +38,7 @@ public class RootFilter implements Filter
 	private static Set<String> staticFiles = new HashSet<>();
 
 	static {
-		for (String entry : CacheBusting.getValues()) {
+		for (String entry : StaticFileMapping.getValues()) {
 			staticFiles.add("/" + entry);
 		}
 		staticFiles.add("/nohash.css");
