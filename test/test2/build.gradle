@@ -1,0 +1,45 @@
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
+        maven { url 'http://mvn.topobyte.de' }
+    }
+    dependencies {
+        classpath 'de.topobyte:gradle-generate-favicons-plugin:0.0.2'
+        classpath 'de.topobyte:gradle-cache-busting-plugin:0.0.2'
+    }
+}
+
+wrapper {
+    gradleVersion = '5.2.1'
+}
+
+allprojects {
+    group = pGroup
+    version = pVersion
+}
+
+subprojects {
+    apply plugin: 'maven'
+
+    repositories {
+        maven {
+            url 'http://mvn.topobyte.de'
+        }
+        maven {
+            url 'http://mvn.slimjars.com'
+        }
+        mavenCentral()
+    }
+}
+
+project(':example-webapp') {
+    apply plugin: 'war'
+    apply plugin: 'eclipse-wtp'
+    apply plugin: 'de.topobyte.generate-favicons-gradle-plugin'
+    apply plugin: 'de.topobyte.cache-busting-gradle-plugin'
+}
+
+subprojects {
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+}
