@@ -35,20 +35,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class GenerateStaticFilesTask extends ConventionTask {
+public class GenerateStaticFilesTask extends ConventionTask
+{
 
     private CacheBustingPluginExtension extension;
 
-    public GenerateStaticFilesTask() {
+    public GenerateStaticFilesTask()
+    {
         setGroup("build");
     }
 
-    public void setConfiguration(CacheBustingPluginExtension extension) {
+    public void setConfiguration(CacheBustingPluginExtension extension)
+    {
         this.extension = extension;
     }
 
     @TaskAction
-    protected void copyFiles() throws IOException {
+    protected void copyFiles() throws IOException
+    {
         Project project = getProject();
 
         if (extension.getInput() == null) {
@@ -97,9 +101,10 @@ public class GenerateStaticFilesTask extends ConventionTask {
         generateSource(project, mappedFiles, map);
     }
 
-    private void generateSource(Project project, List<Path> mappedFiles, Map<Path, Path> map) throws IOException {
-        String packageName = "de.topobyte.cachebusting";
-        String className = "CacheBusting";
+    private void generateSource(Project project, List<Path> mappedFiles, Map<Path, Path> map) throws IOException
+    {
+        String className = extension.getClassName();
+        String packageName = extension.getPackageName();
         String[] parts = packageName.split("\\.");
 
         Path pathBuildDir = project.getBuildDir().toPath();

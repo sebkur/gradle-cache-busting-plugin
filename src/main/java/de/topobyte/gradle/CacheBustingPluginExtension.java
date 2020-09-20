@@ -23,6 +23,8 @@ public class CacheBustingPluginExtension
 {
 
 	private List<String> input;
+	private String packageName = "de.topobyte.cachebusting";
+	private String className = "CacheBusting";
 
 	public List<String> getInput()
 	{
@@ -32,6 +34,26 @@ public class CacheBustingPluginExtension
 	public void setInput(List<String> input)
 	{
 		this.input = input;
+	}
+
+	public String getPackageName()
+	{
+		return packageName;
+	}
+
+	public void setPackageName(String packageName)
+	{
+		this.packageName = packageName;
+	}
+
+	public String getClassName()
+	{
+		return className;
+	}
+
+	public void setClassName(String className)
+	{
+		this.className = className;
 	}
 
 }
