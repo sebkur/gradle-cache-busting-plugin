@@ -1,7 +1,7 @@
 # Impressum
 
 Mobanisto UG (haftungsbeschränkt)<br>
-Altensteinstr. 40<br>
-14195 Berlin<br>
+Blumenstr. 9<br>
+03149 Forst (Lausitz)<br>
 
 Mail: <sebastian@mobanisto.de>
